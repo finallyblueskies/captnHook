@@ -1,4 +1,4 @@
-package botserver
+package server
 
 import (
 	"log"
