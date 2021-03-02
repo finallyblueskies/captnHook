@@ -9,6 +9,7 @@ import (
 type Server struct {
 	Echo *echo.Echo
 	ConfigService *config.Service
+	// BrokerService
 }
 
 // New creates a new HTTP server with injected dependencies
