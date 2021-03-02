@@ -1,9 +1,9 @@
-package captnhook
+package services
 
 // Config is a service that is designed to provide various configuration to the rest of the application
 type Config struct {
 	General GeneralConfig
-	Alpaca AlpacaConfig
+	Alpaca  AlpacaConfig
 	Binance BinanceConfig
 }
 
@@ -17,11 +17,14 @@ type ConfigService interface {
 
 // GeneralConfig controls the general setup of the server
 type GeneralConfig struct {
+	Port string
 	BaseURL string
 	AppEnv string
+	CertPath string
+	KeyPath string
 }
 
-// AlpacaConfig controls Alpaca keys platform keys and base urls
+// AlpacaConfig controls Alpaca configuration variables
 type AlpacaConfig struct {
 	ClientID string
 	ClientSecret string
@@ -29,6 +32,7 @@ type AlpacaConfig struct {
 	BaseURL string
 }
 
+// BinanceConfig controls Binance configuration variables
 type BinanceConfig struct {
-
+	// TODO: implement
 }

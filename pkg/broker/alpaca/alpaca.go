@@ -1,20 +1,24 @@
 package alpaca
 
 import (
+	"errors"
 	"github.com/alpacahq/alpaca-trade-api-go/alpaca"
 	"github.com/alpacahq/alpaca-trade-api-go/common"
-	captnhook "github.com/bareish/captnHook/pkg"
+	"github.com/bareish/captnHook/pkg/services"
 	"github.com/shopspring/decimal"
 	"os"
 )
 
-type Alpaca struct {
-	Client *alpaca.Client
-	ConfigService captnhook.ConfigService
+// BrokerService
+type BrokerService struct {
+	Client        *alpaca.Client
+	ConfigService services.ConfigService
 }
 
-// New will create a new alpaca client instance
-func New(cs captnhook.ConfigService) *Alpaca {
+// Get will initialize the alpaca client
+func (b *BrokerService) Setup() {
+	// config service
+	cs := b.ConfigService
 	// set client id
 	_ = os.Setenv(common.EnvApiKeyID, cs.Get().Alpaca.ClientID)
 	// set client secret
@@ -24,28 +28,30 @@ func New(cs captnhook.ConfigService) *Alpaca {
 		alpaca.SetBaseUrl(cs.Get().Alpaca.BaseURL)
 	}
 	// create new client
-	client := alpaca.NewClient(common.Credentials())
-
-	return &Alpaca{
-		Client: client,
-		ConfigService: cs,
-	}
+	b.Client = alpaca.NewClient(common.Credentials())
 }
 
 
 // Buy buys an asset and will move funds into that ticker
-func (a *Alpaca) Buy(ticker string, quantity float64) (err error) {
+func (b *BrokerService)Buy(ticker string, quantity float64) (err error) {
+	// check buying power
+	buyingPower, err := b.GetBuyingPower()
+	if err != nil {
+		return err
+	}
+	if buyingPower == 0.0 {
+		return errors.New("no funds in account")
+	}
 	order := alpaca.PlaceOrderRequest{
-		AccountID:   os.Getenv(common.EnvApiKeyID),
+		AccountID:   common.EnvApiKeyID,
 		AssetKey:    &ticker,
 		Qty:         decimal.NewFromFloat(quantity),
 		Side:        "buy",
 		Type:        "market",
 		TimeInForce: "day",
 	}
-
 	// make the order from the client
-	 _, err = a.Client.PlaceOrder(order)
+	 _, err = b.Client.PlaceOrder(order)
 	 if err != nil {
 	 	return err
 	 }
@@ -54,14 +60,14 @@ func (a *Alpaca) Buy(ticker string, quantity float64) (err error) {
 }
 
 // Sell sells an asset and will move funds into that ticker
-func (a *Alpaca) Sell(ticker string, quantity float64) (err error) {
+func (b *BrokerService)Sell(ticker string, quantity float64) (err error) {
 	return nil
 }
 
 // GetBuyingPower returns the user buying power
-func (a *Alpaca) GetBuyingPower() (float64, error) {
+func (b *BrokerService)GetBuyingPower() (float64, error) {
 	// get account information
-	account, err := a.Client.GetAccount()
+	account, err := b.Client.GetAccount()
 	if err != nil {
 		return 0.0, err
 	}

@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/bareish/captnHook/pkg/broker/alpaca"
 	"github.com/bareish/captnHook/pkg/config"
-	"log"
+	"github.com/bareish/captnHook/pkg/http/rest"
 )
 
 func main() {
@@ -11,10 +11,11 @@ func main() {
 	configService := &config.Service{}
 	configService.Load()
 	// create the new broker service
-	client := alpaca.New(configService)
-	 b, err := client.GetBuyingPower()
-	 if err != nil {
-	 	panic(err)
-	 }
-	 log.Println(b)
+	brokerService := &alpaca.BrokerService{
+		ConfigService: configService,
+	}
+	brokerService.Setup()
+	// HTTP/2 REST server
+	server := rest.New(configService, brokerService)
+	server.Start()
 }

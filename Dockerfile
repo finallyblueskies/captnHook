@@ -19,7 +19,7 @@ RUN go mod download
 RUN go get github.com/githubnemo/CompileDaemon
 
 # Build application
-RUN go build -o ${APP_NAME} ./cmd/bot
+RUN go build -o ${APP_NAME} ./cmd
 
 # Run application   
 CMD ./${APP_NAME}
