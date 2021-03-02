@@ -2,7 +2,7 @@
 package config
 
 import (
-	captnhook2 "github.com/bareish/captnHook/pkg/services"
+	"github.com/bareish/captnHook/pkg/services"
 	"log"
 	"os"
 
@@ -21,17 +21,17 @@ func (c *Service) Load() {
 }
 
 // Get will return the default config
-func (c *Service) Get() captnhook2.Config {
-	return captnhook2.Config{
+func (c *Service) Get() services.Config {
+	return services.Config{
 		General: getGeneralConfig(),
 		Alpaca: getAlpacaConfig(),
 	}
 }
 
 // return the server general configuration
-func getGeneralConfig() captnhook2.GeneralConfig {
+func getGeneralConfig() services.GeneralConfig {
 	// default to dev settings
-	config := captnhook2.GeneralConfig{
+	config := services.GeneralConfig{
 		Port: os.Getenv("PORT"),
 		CertPath: os.Getenv("CERT_PATH"),
 		KeyPath: os.Getenv("KEY_PATH"),
@@ -47,9 +47,9 @@ func getGeneralConfig() captnhook2.GeneralConfig {
 }
 
 // return the Alpaca configuration
-func getAlpacaConfig() captnhook2.AlpacaConfig {
+func getAlpacaConfig() services.AlpacaConfig {
 	// setup config values
-	config := captnhook2.AlpacaConfig{
+	config := services.AlpacaConfig{
 		// client id
 		ClientID: os.Getenv("ALPACA_CLIENT_ID"),
 		// client secret

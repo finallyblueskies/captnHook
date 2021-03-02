@@ -8,6 +8,9 @@ import (
 	"github.com/shopspring/decimal"
 	"os"
 )
+const (
+	NoFundsErr = "no funds available in account"
+)
 
 // BrokerService
 type BrokerService struct {
@@ -33,19 +36,19 @@ func (b *BrokerService) Setup() {
 
 
 // Buy buys an asset and will move funds into that ticker
-func (b *BrokerService)Buy(ticker string, quantity float64) (err error) {
+func (b *BrokerService) Buy(ticker string) (err error) {
 	// check buying power
 	buyingPower, err := b.GetBuyingPower()
 	if err != nil {
 		return err
 	}
 	if buyingPower == 0.0 {
-		return errors.New("no funds in account")
+		return errors.New(NoFundsErr)
 	}
 	order := alpaca.PlaceOrderRequest{
 		AccountID:   common.EnvApiKeyID,
 		AssetKey:    &ticker,
-		Qty:         decimal.NewFromFloat(quantity),
+		Qty:         decimal.NewFromFloat(buyingPower), // we going all in bois
 		Side:        "buy",
 		Type:        "market",
 		TimeInForce: "day",
@@ -60,12 +63,12 @@ func (b *BrokerService)Buy(ticker string, quantity float64) (err error) {
 }
 
 // Sell sells an asset and will move funds into that ticker
-func (b *BrokerService)Sell(ticker string, quantity float64) (err error) {
+func (b *BrokerService) Sell(ticker string, quantity float64) (err error) {
 	return nil
 }
 
 // GetBuyingPower returns the user buying power
-func (b *BrokerService)GetBuyingPower() (float64, error) {
+func (b *BrokerService) GetBuyingPower() (float64, error) {
 	// get account information
 	account, err := b.Client.GetAccount()
 	if err != nil {
