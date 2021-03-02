@@ -45,16 +45,23 @@ func getGeneralConfig() captnhook.GeneralConfig {
 
 // return the Alpaca configuration
 func getAlpacaConfig() captnhook.AlpacaConfig {
-	return captnhook.AlpacaConfig{
+	// setup config values
+	config := captnhook.AlpacaConfig{
 		// client id
 		ClientID: os.Getenv("ALPACA_CLIENT_ID"),
 		// client secret
 		ClientSecret: os.Getenv("ALPACA_CLIENT_SECRET"),
 		// account type
 		AccountType: os.Getenv("ALPACA_ACCOUNT_TYPE"),
-		// base
-		BaseURL: os.Getenv("ALPACA_BASE_URL"),
+		// base - we default to paper url lmao
+		BaseURL: "https://paper-api.alpaca.markets",
 	}
+	// check if we are using the live url
+	if config.AccountType == "live" {
+		config.BaseURL = "https://api.alpaca.markets"
+	}
+
+	return config
 }
 
 

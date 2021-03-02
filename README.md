@@ -10,8 +10,8 @@ captnHook allows users to place trades with Tradingview's webhook alerts. The se
 <p align="center"><a href="#">Website Coming Soon</a></p>
 <br>
 <p align="center">
-   <a href="https://goreportcard.com/report/github.com/bareish/captnHook"><img src="https://goreportcard.com/badge/github.com/bareish/captnHook"></a>
    <a href="https://github.com/imthaghost/goclone/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
+   <a href="https://goreportcard.com/report/github.com/bareish/captnHook"><img src="https://goreportcard.com/badge/github.com/bareish/captnHook"></a>
 </p>
 <br>
 
