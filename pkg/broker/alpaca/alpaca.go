@@ -38,7 +38,6 @@ func (b *BrokerService) Setup() {
 	b.Client = alpaca.NewClient(common.Credentials())
 }
 
-
 // Buy buys an asset and will move funds into that ticker
 // todo we can allow buy a certain amount but right now we going all in
 func (b *BrokerService) Buy(ticker string, quantity float64) (string, error) {
@@ -59,12 +58,12 @@ func (b *BrokerService) Buy(ticker string, quantity float64) (string, error) {
 		TimeInForce: "day",
 	}
 	// make the order from the client
-	 placedOrder, err := b.Client.PlaceOrder(order)
-	 if err != nil {
-	 	return "", err
-	 }
+	placedOrder, err := b.Client.PlaceOrder(order)
+	if err != nil {
+		return "", err
+	}
 
-	 return placedOrder.ClientOrderID, nil
+	return placedOrder.ClientOrderID, nil
 }
 
 // Sell sells an asset and will move funds into that ticker
@@ -101,4 +100,3 @@ func (b *BrokerService) GetBuyingPower() (float64, error) {
 	power, _ := account.BuyingPower.Float64()
 	return power, nil
 }
-

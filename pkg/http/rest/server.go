@@ -9,7 +9,7 @@ import (
 
 const (
 	// BadRequest is an http 400 error
-	BadRequest     = http.StatusBadRequest
+	BadRequest = http.StatusBadRequest
 	// BodyBindingErr is an error message when we fail to bind the request body
 	BodyBindingErr = "could not bind body"
 )

@@ -17,19 +17,19 @@ type ConfigService interface {
 
 // GeneralConfig controls the general setup of the server
 type GeneralConfig struct {
-	Port string
-	BaseURL string
-	AppEnv string
+	Port     string
+	BaseURL  string
+	AppEnv   string
 	CertPath string
-	KeyPath string
+	KeyPath  string
 }
 
 // AlpacaConfig controls Alpaca configuration variables
 type AlpacaConfig struct {
-	ClientID string
+	ClientID     string
 	ClientSecret string
-	AccountType string
-	BaseURL string
+	AccountType  string
+	BaseURL      string
 }
 
 // BinanceConfig controls Binance configuration variables

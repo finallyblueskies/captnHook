@@ -5,8 +5,6 @@ import (
 	"net/http"
 )
 
-
-
 // WebHookRequest ...
 type WebHookRequest struct {
 	Ticker string `json:"ticker"`
