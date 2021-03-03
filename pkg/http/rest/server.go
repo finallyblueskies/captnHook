@@ -17,7 +17,7 @@ type Server struct {
 func New(cs services.ConfigService, bs services.BrokerService) *Server {
 
 	return &Server{
-		Echo: echo.New(),
+		Echo:          echo.New(),
 		ConfigService: cs,
 		BrokerService: bs,
 	}
@@ -28,16 +28,16 @@ func (s *Server) Start() {
 	// base configuration variables
 	cfg := s.ConfigService.Get().General
 	port := cfg.Port
-	cert := cfg.CertPath
-	key := cfg.KeyPath
+	//cert := cfg.CertPath
+	//key := cfg.KeyPath
 	echoHandler := s.Echo
 	// register routes
 	s.Routes()
 	// start
-	echoHandler.Logger.Fatal(echoHandler.StartTLS(":"+port, cert, key))
+	echoHandler.Logger.Fatal(echoHandler.Start(":" + port))
 }
 
 // Close gracefully shuts down server and closes all connections
-func (s *Server) Close() (err error){
+func (s *Server) Close() (err error) {
 	return s.Echo.Close()
 }

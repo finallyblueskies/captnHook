@@ -24,7 +24,7 @@ func (c *Service) Load() {
 func (c *Service) Get() services.Config {
 	return services.Config{
 		General: getGeneralConfig(),
-		Alpaca: getAlpacaConfig(),
+		Alpaca:  getAlpacaConfig(),
 	}
 }
 
@@ -32,11 +32,11 @@ func (c *Service) Get() services.Config {
 func getGeneralConfig() services.GeneralConfig {
 	// default to dev settings
 	config := services.GeneralConfig{
-		Port: os.Getenv("PORT"),
+		Port:     os.Getenv("PORT"),
 		CertPath: os.Getenv("CERT_PATH"),
-		KeyPath: os.Getenv("KEY_PATH"),
-		AppEnv: os.Getenv("MODE"),
-		BaseURL: os.Getenv("BASE_URL"),
+		KeyPath:  os.Getenv("KEY_PATH"),
+		AppEnv:   os.Getenv("MODE"),
+		BaseURL:  os.Getenv("BASE_URL"),
 	}
 	// change urls if we are in production
 	if config.AppEnv == "PROD" {
@@ -77,8 +77,3 @@ func getBinanceConfig() services.BinanceConfig {
 func getCoinbaseConfig() services.CoinbaseConfig {
 	return services.CoinbaseConfig{}
 }
-
-
-
-
-
