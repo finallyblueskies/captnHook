@@ -67,6 +67,18 @@ func getAlpacaConfig() services.AlpacaConfig {
 	return config
 }
 
+// return the Binance configuration
+func getBinanceConfig() services.BinanceConfig {
+	// nothing for now
+	return services.BinanceConfig{}
+}
+
+// return the Coinbase configuration
+func getCoinbaseConfig() services.CoinbaseConfig {
+	return services.CoinbaseConfig{}
+}
+
+
 
 
 

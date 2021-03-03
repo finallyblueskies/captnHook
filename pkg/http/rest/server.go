@@ -5,6 +5,7 @@ import (
 	"github.com/bareish/captnHook/pkg/services"
 	"github.com/labstack/echo/v4"
 )
+
 // Server represents a HTTP/2 REST API using the Echo microframework
 type Server struct {
 	Echo          *echo.Echo
