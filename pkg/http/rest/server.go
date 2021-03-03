@@ -8,7 +8,7 @@ import (
 
 // Server represents a HTTP/2 REST API using the Echo microframework
 type Server struct {
-	Echo          *echo.Echo
+	Echo          *echo.Echo // Todo: this couples the application as well - refactor to use basic http server
 	ConfigService services.ConfigService
 	BrokerService services.BrokerService
 }
