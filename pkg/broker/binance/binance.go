@@ -7,7 +7,7 @@ import (
 
 // BrokerService represent the interface to the Binance API
 type BrokerService struct {
-	Client *binance.Client
+	Client        *binance.Client
 	ConfigService services.ConfigService
 }
 
