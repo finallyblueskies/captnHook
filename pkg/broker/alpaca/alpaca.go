@@ -10,17 +10,19 @@ import (
 )
 
 const (
+	// NoFundsErr is an error message if there is no money in the account
 	NoFundsErr = "no funds available in account"
+	// PositionErr is an error message if we cannot get the user's current position of a ticker
 	PositionErr = "could not get position"
 )
 
-// BrokerService
+// BrokerService represents the Alpaca broker functionality
 type BrokerService struct {
 	Client        *alpaca.Client
 	ConfigService services.ConfigService
 }
 
-// Get will initialize the alpaca client
+// Setup will initialize the Alpaca client
 func (b *BrokerService) Setup() {
 	// config service
 	cs := b.ConfigService

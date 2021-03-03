@@ -5,10 +5,7 @@ import (
 	"net/http"
 )
 
-const (
-	BadRequest     = http.StatusBadRequest
-	BodyBindingErr = "could not bind body"
-)
+
 
 // WebHookRequest ...
 type WebHookRequest struct {

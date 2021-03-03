@@ -1,4 +1,4 @@
-// config package
+// Package config is for loading environment variables
 package config
 
 import (

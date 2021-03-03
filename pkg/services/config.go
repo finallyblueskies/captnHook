@@ -37,7 +37,7 @@ type BinanceConfig struct {
 	// TODO: implement
 }
 
-// CoinBaseConfig controls Coinbase configuration variables
+// CoinbaseConfig controls Coinbase configuration variables
 type CoinbaseConfig struct {
 	// TODO: implement
 }

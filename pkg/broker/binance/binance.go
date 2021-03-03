@@ -5,23 +5,23 @@ import (
 	"github.com/bareish/captnHook/pkg/services"
 )
 
-// BrokerService
+// BrokerService represent the interface to the Binance API
 type BrokerService struct {
 	Client *binance.Client
 	ConfigService services.ConfigService
 }
 
-// Buy
+// Buy ...
 func (b *BrokerService) Buy(ticker string) {
 
 }
 
-// Sell
+// Sell ...
 func (b *BrokerService) Sell(ticker string) {
 
 }
 
-// GetBuyingPower
+// GetBuyingPower ...
 func (b *BrokerService) GetBuyingPower() {
 
 }

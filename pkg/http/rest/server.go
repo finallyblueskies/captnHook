@@ -4,6 +4,14 @@ package rest
 import (
 	"github.com/bareish/captnHook/pkg/services"
 	"github.com/labstack/echo/v4"
+	"net/http"
+)
+
+const (
+	// BadRequest is an http 400 error
+	BadRequest     = http.StatusBadRequest
+	// BodyBindingErr is an error message when we fail to bind the request body
+	BodyBindingErr = "could not bind body"
 )
 
 // Server represents a HTTP/2 REST API using the Echo microframework
