@@ -30,6 +30,7 @@ type AlpacaConfig struct {
 	ClientSecret string
 	AccountType  string
 	BaseURL      string
+	WebSocketURL string
 }
 
 // BinanceConfig controls Binance configuration variables

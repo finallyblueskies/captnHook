@@ -6,7 +6,7 @@ import (
 	"github.com/bareish/captnHook/pkg/http/rest"
 )
 
-// Run loads configuration variables starts our services and initialize our server
+// Run loads configuration variables starts our services and initializes our server
 func Run() {
 	// create config service
 	configService := &config.Service{}

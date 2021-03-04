@@ -17,12 +17,11 @@ type WebHookRequest struct {
 func (s *Server) Signal(c echo.Context) (err error) {
 	var empty interface{}
 	w := empty
-	// what tf are they sending me
-	log.Println(w)
 	// bind body to watchlist struct
 	if err = c.Bind(&w); err != nil {
 		return echo.NewHTTPError(BadRequest, BodyBindingErr)
 	}
-
+	// what tf are they sending me
+	log.Println(w)
 	return c.JSON(http.StatusOK, w)
 }

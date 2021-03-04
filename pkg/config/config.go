@@ -58,6 +58,8 @@ func getAlpacaConfig() services.AlpacaConfig {
 		AccountType: os.Getenv("ALPACA_ACCOUNT_TYPE"),
 		// base - we default to paper url lmao
 		BaseURL: "https://paper-api.alpaca.markets",
+		// websocket url
+		WebSocketURL: os.Getenv("ALPACA_WEBSOCKET_URL"),
 	}
 	// check if we are using the live url
 	if config.AccountType == "live" {
