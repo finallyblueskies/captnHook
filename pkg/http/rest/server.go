@@ -21,8 +21,8 @@ type Server struct {
 	BrokerService services.BrokerService
 }
 
-// New creates a new HTTP server with injected services
-func New(cs services.ConfigService, bs services.BrokerService) *Server {
+// NewRESTServer creates a new HTTP server with injected services
+func NewRESTServer(cs services.ConfigService, bs services.BrokerService) *Server {
 
 	return &Server{
 		Echo:          echo.New(),

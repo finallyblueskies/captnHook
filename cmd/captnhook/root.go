@@ -19,6 +19,7 @@ func Run() {
 	brokerService.Setup()
 
 	// HTTP/2 REST server
-	server := rest.New(configService, brokerService)
+	server := rest.NewRESTServer(configService, brokerService)
 	server.Start()
+
 }

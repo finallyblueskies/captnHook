@@ -6,4 +6,6 @@ type HTTPService interface {
 	Start()
 	// Routes will register the endpoints
 	Routes()
+	// Close will kill the connection
+	Close() (err error)
 }
