@@ -53,11 +53,8 @@ $ cp .env.example .env
   │   ├── cert.pem
   │   └── key.pem
 ```
-<a name="example"></a>
-### Example
-
->Your .env file should have the same keys as the .env.example. If you create new enviornment variables update the .env.example.
->
+<a name="dot env example"></a>
+### Dotenv Example
 ```dotenv
 # general configuration
 MODE = dev  # can be dev/prod
