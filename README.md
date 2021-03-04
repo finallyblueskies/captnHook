@@ -17,14 +17,14 @@ captnHook allows users to place trades with Tradingview's webhook alerts. The se
 
 <p align="center">
 <h3>Directories</h3>
-<p>
+<p align="center">
    • <a href="#">cert</a> A folder for housing a self-signed X.509 TLS certificate <br>
    • <a href="#">cmd</a> Main application for this project <br>
    • <a href="#">docs</a> Design and user documents <br>
    • <a href="#">pkg</a> Library code used by the main command <br>
-   </p>
-   
-<a name="directories"></a>
+ </p>
+
+
 
 
 <a name="installation"></a>
