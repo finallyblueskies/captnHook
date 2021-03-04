@@ -15,13 +15,17 @@ captnHook allows users to place trades with Tradingview's webhook alerts. The se
 </p>
 <br>
 
+<p align="center">
+<h3>Directories</h3>
+<p>
+   • <a href="#">cert</a> A folder for housing a self-signed X.509 TLS certificate <br>
+   • <a href="#">cmd</a> Main application for this project <br>
+   • <a href="#">docs</a> Design and user documents <br>
+   • <a href="#">pkg</a> Library code used by the main command <br>
+   </p>
+   
 <a name="directories"></a>
-### Directories
 
-- [cert](cert/) A folder for housing a self-signed X.509 TLS certificate 
-- [cmd](cmd/) Main application for this project
-- [docs](docs/) Design and user documents
-- [pkg](pkg/) Library code used by the main command
 
 <a name="installation"></a>
 ### Installation
@@ -77,10 +81,13 @@ BINANCE_CLIENT_ID=nictrygithubscraper
 
 <a name="running locally"></a>
 ### Running locally
+As simple as one command :)
+```shell script
+$ docker-compose up
+```
+ Output should look as such:
 
 ```go
-> docker-compose up
-
 Successfully tagged captnhook_api:latest
 Recreating captnhook_api ... done
 Attaching to captnhook_api
