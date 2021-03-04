@@ -42,7 +42,7 @@ func (s *Server) Start() {
 	// register routes
 	s.Routes()
 	// start
-	echoHandler.Logger.Fatal(echoHandler.Start(":" + port))
+	echoHandler.Logger.Fatal(echoHandler.Start(":"+port))
 }
 
 // Close gracefully shuts down server and closes all connections

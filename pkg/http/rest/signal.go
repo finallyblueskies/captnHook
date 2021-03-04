@@ -2,6 +2,7 @@ package rest
 
 import (
 	"github.com/labstack/echo/v4"
+	"log"
 	"net/http"
 )
 
@@ -14,7 +15,10 @@ type WebHookRequest struct {
 
 // Signal accepts a JSON request from TradingView and does trades based on the response data
 func (s *Server) Signal(c echo.Context) (err error) {
-	w := WebHookRequest{}
+	var empty interface{}
+	w := empty
+	// what tf are they sending me
+	log.Println(w)
 	// bind body to watchlist struct
 	if err = c.Bind(&w); err != nil {
 		return echo.NewHTTPError(BadRequest, BodyBindingErr)
