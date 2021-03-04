@@ -10,33 +10,31 @@ import (
 	"github.com/bareish/captnHook/pkg/services"
 )
 
-const (
-	MaxConnectionAttempts = 5 			// max retries
-	TradeUpdates   = "trade_updates" 	// alpaca trade updates string
-	AccountUpdates = "account_updates"  // alpaca account updates string
-)
+
 
 // MarketDataService ...
 type MarketDataService struct  {
 	ConfigService services.ConfigService
 	Stream *Stream
-
+	PriceChan chan StreamQuote
 }
 
 // Setup ...
 func (m *MarketDataService) Setup() {
 	// config service
 	cs := m.ConfigService
+	// create stream client
 	m.Stream = NewStreamClient(cs)
+	// start websocket connection and stream data
+	go m.Stream.Start()
 }
 
 // CurrentPrice ...
-func (m *MarketDataService) CurrentPrice(msg interface{}) float32 {
-	quote, _ := msg.(StreamQuote)
-
-	return quote.BidPrice
+func (m *MarketDataService) CurrentPrice(ticker string) (float32, error) {
+	// subscribe to ticker
+	// m.Stream.StreamQuote(ticker,)
+	return 0.0, nil
 }
-
 
 
 

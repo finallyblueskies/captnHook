@@ -14,6 +14,13 @@ import (
 	"time"
 )
 
+const (
+	MaxConnectionAttempts = 5 			// max retries
+	TradeUpdates   = "trade_updates" 	// alpaca trade updates string
+	AccountUpdates = "account_updates"  // alpaca account updates string
+)
+
+// Errors
 const(
 	InvalidAlpacaStreamErr = "invalid Alpaca stream (%s)"
 	MaxRetriesExceededErr = "could not open Alpaca Alpaca stream (max retries exceeded)"
