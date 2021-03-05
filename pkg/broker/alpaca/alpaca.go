@@ -18,7 +18,7 @@ const (
 type BrokerService struct {
 	Client        *alpaca.Client
 	ConfigService services.ConfigService
-	MarketDataService services.MarketDataService
+	DataMangerService services.DataManagerService
 }
 
 // Setup will initialize the Alpaca client

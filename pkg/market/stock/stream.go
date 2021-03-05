@@ -69,7 +69,6 @@ func (s *Stream) StreamQuote(ticker string, handler chan StreamQuote) error {
 	if err := s.sub(chanKey); err != nil {
 		s.quoteHandlers.Delete(chanKey)
 		log.Println("StreamQuote failed on ticker: " + ticker)
-		log.Println(err)
 		return err
 	}
 
