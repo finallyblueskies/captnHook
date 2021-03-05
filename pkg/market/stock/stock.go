@@ -9,10 +9,13 @@ package stock
 import (
 	"github.com/bareish/captnHook/pkg/services"
 	cmap "github.com/orcaman/concurrent-map"
+	"log"
 )
 
+// DataService struct provides data from the stock market
+type DataService struct {
 
-
+}
 // MarketDataService ...
 type MarketDataService struct  {
 	ConfigService services.ConfigService
@@ -25,6 +28,7 @@ type MarketDataService struct  {
 
 // Setup ...
 func (m *MarketDataService) Setup() {
+	m.PriceChan = make(chan StreamQuote, 128)
 	// config service
 	cs := m.ConfigService
 	// create stream client
@@ -35,6 +39,8 @@ func (m *MarketDataService) Setup() {
 
 // CurrentPrice ...
 func (m *MarketDataService) CurrentPrice(ticker string) (float32, error) {
+
+
 	/* concurrent map implementation
 	if ticker not in map start streaming data to map on its own go routine
 	price, ok := m.PriceMap.Get(ticker)
@@ -47,13 +53,13 @@ func (m *MarketDataService) CurrentPrice(ticker string) (float32, error) {
 	currentPrice := price.(atomic.Value)
 	*/
 
-	if _, ok := m.SeenTickers[ticker]; ok {
-		return m.PriceVal, nil
-	}
+	//if _, ok := m.SeenTickers[ticker]; ok {
+	//	return m.PriceVal, nil
+	//}
 	// start stream
 	go m.currentPriceStream(ticker)
 	// add ticker to seen
-	m.SeenTickers[ticker] = true
+	//m.SeenTickers[ticker] = true
 
 	return m.PriceVal, nil
 
@@ -65,8 +71,9 @@ func (m *MarketDataService) currentPriceStream(ticker string) error {
 	if err != nil {
 		return err
 	}
+
 	for stock := range m.PriceChan {
-		m.PriceVal = stock.AskPrice
+		log.Println(stock.AskPrice)
 	}
 	return nil
 }

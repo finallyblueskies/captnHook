@@ -56,7 +56,7 @@ func getAlpacaConfig() services.AlpacaConfig {
 		ClientSecret: os.Getenv("ALPACA_CLIENT_SECRET"),
 		// account type
 		AccountType: os.Getenv("ALPACA_ACCOUNT_TYPE"),
-		// base - we default to paper url lmao
+		// base - we default to paper url
 		BaseURL: "https://paper-api.alpaca.markets",
 		// websocket url
 		WebSocketURL: os.Getenv("ALPACA_WEBSOCKET_URL"),

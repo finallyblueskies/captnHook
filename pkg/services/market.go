@@ -9,3 +9,9 @@ type MarketDataService interface {
 	// CurrentPrice will return the live current price of
 	CurrentPrice(ticker string) (float32, error)
 }
+
+
+// DataService is a service that connects to the MarketDataService for switching between types of markets
+type DataService interface {
+
+}

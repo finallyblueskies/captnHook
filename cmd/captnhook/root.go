@@ -23,7 +23,7 @@ func Run() {
 		MarketDataService: marketDataService,
 	}
 	brokerService.Setup()
-
+	
 	// HTTP/2 REST server
 	server := rest.NewRESTServer(configService, brokerService)
 	server.Start()

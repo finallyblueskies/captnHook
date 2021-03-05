@@ -24,6 +24,7 @@ const (
 const(
 	InvalidAlpacaStreamErr = "invalid Alpaca stream (%s)"
 	MaxRetriesExceededErr = "could not open Alpaca Alpaca stream (max retries exceeded)"
+	FailedAuthErr = "failed to authorize connection"
 )
 
 // Stream represents the websocket connection
@@ -137,11 +138,12 @@ func (s *Stream) Unsubscribe(channel string) (err error){
 
 // Start
 func (s *Stream) Start() (err error) {
+	// todo: if markets are closed exit early
 	// connect
 	if s.conn == nil {
 		s.conn, err = s.openSocket()
 		if err != nil {
-			log.Print(s.base, ": Web Socket Connection Error:", err)
+			log.Print(s.base, ": Web Socket Connection Error: ", err)
 			return err
 		}
 	}
@@ -308,8 +310,9 @@ func (s *Stream) auth() (err error) {
 	}
 	m := msg.Data.(map[string]interface{})
 	if !strings.EqualFold(m["status"].(string), "authorized") {
-		return errors.New("failed to authorize alpaca alpacastream")
+		return errors.New(FailedAuthErr)
 	}
+
 	// change authenticate state to true
 	s.authenticated.Store(true)
 
