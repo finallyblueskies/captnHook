@@ -42,8 +42,11 @@ $ https://github.com/bareish/captnhook.git
 
 2. You can set the condition of the alert to whatever you want
 
-![Settings](/docs/media/settings.png "Settings")
+![Conditions](/docs/media/conditions.png "Conditions")
 
+3. Check the Webhook URL box and set it to your domain.
+
+![Hook](/docs/media/hook.png "Hook")
 
 3. Format your message as JSON, so the server can recognize it
 
