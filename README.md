@@ -34,8 +34,6 @@ $ https://github.com/bareish/captnhook.git
 <a name="webhook settings"></a>
 ### Webhook Settings
 
-![CaptnHook](/docs/media/captnhook.png "Hooks")
-
 1. Let's create a new alert in [TradeView](https://tradeview.com)
 
 ![Alert](/docs/media/alert.png "Alert button")
