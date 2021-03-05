@@ -31,6 +31,33 @@ Clone the project to your machine
 ```bash
 $ https://github.com/bareish/captnhook.git
 ```
+<a name="webhook settings"></a>
+### Webhook Settings
+
+![CaptnHook](/docs/media/captnhook.png "Hooks")
+
+1. Let's create a new alert in [TradeView](https://tradeview.com)
+
+![Alert](/docs/media/alert.png "Alert button")
+
+2. You can set the condition of the alert to whatever you want
+
+![Settings](/docs/media/settings.png "Settings")
+
+
+3. Format your message as JSON, so the server can recognize it
+
+![JSON](/docs/media/json.png "JSON")
+
+Example:
+```json5
+{
+  "ticker" : "{{ticker}}", 
+  "price" : "{{close}}",
+  "action": "Buy" 
+}
+```
+
 <a name="envioirnment variables"></a>
 ### Environment Variables
 
