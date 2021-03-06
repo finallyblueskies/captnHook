@@ -31,33 +31,6 @@ Clone the project to your machine
 ```bash
 $ https://github.com/bareish/captnhook.git
 ```
-<a name="webhook settings"></a>
-### Webhook Settings
-
-1. Let's create a new alert in [TradeView](https://tradeview.com)
-
-![Alert](/docs/media/alert.png "Alert button")
-
-2. You can set the condition of the alert to whatever you want
-
-![Conditions](/docs/media/conditions.png "Conditions")
-
-3. Check the Webhook URL box and set it to your domain.
-
-![Hook](/docs/media/hook.png "Hook")
-
-3. Format your message as JSON, so the server can recognize it
-
-![JSON](/docs/media/json.png "JSON")
-
-Example:
-```json5
-{
-  "ticker" : "{{ticker}}", 
-  "price" : "{{close}}",
-  "action": "Buy" 
-}
-```
 
 <a name="envioirnment variables"></a>
 ### Environment Variables
@@ -129,6 +102,33 @@ api_1  | ⇨ http server started on [::]:8000
 
 ```
 
+<a name="webhook settings"></a>
+### Webhook Settings
+
+1. Let's create a new alert in [TradingView](https://www.tradingview.com/)
+
+![Alert](/docs/media/alert.png "Alert button")
+
+2. You can set the condition of the alert to whatever you want
+
+![Conditions](/docs/media/conditions.png "Conditions")
+
+3. Check the Webhook URL box and set it to your domain.
+
+![Hook](/docs/media/hook.png "Hook")
+
+3. Format your message as JSON, so the server can recognize it
+
+![JSON](/docs/media/json.png "JSON")
+
+Example:
+```json5
+{
+  "ticker" : "{{ticker}}", 
+  "price" : "{{close}}",
+  "action": "Buy" 
+}
+```
 
 
 
