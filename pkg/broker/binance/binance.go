@@ -11,17 +11,6 @@ type BrokerService struct {
 	ConfigService services.ConfigService
 }
 
-// Buy ...
-func (b *BrokerService) Buy(ticker string) {
-
-}
-
-// Sell ...
-func (b *BrokerService) Sell(ticker string) {
-
-}
-
-// GetBuyingPower ...
-func (b *BrokerService) GetBuyingPower() {
-
+func (b *BrokerService) Setup() {
+	// binanceConfig := b.ConfigService.Get().Binance
 }

@@ -8,10 +8,13 @@ import (
 )
 
 const (
-	// BadRequest is an http 400 error
+	// BadRequest is an http 400 response
 	BadRequest = http.StatusBadRequest
 	// BodyBindingErr is an error message when we fail to bind the request body
 	BodyBindingErr = "could not bind body"
+	// Internal Server err is a http 500 response
+	InternalServerErr = http.StatusInternalServerError
+
 )
 
 // Server represents a HTTP/2 REST API using the Echo microframework

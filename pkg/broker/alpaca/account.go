@@ -5,6 +5,7 @@ import (
 	"github.com/alpacahq/alpaca-trade-api-go/alpaca"
 	"github.com/alpacahq/alpaca-trade-api-go/common"
 	"github.com/shopspring/decimal"
+	"log"
 )
 
 // Buy buys an asset and will move funds into that ticker
@@ -12,8 +13,10 @@ import (
 func (b *BrokerService) Buy(ticker string, currentPrice int64) (string, error) {
 	// check buying power and convert that into share amount
 	buyingPower, err := b.GetBuyingPower()
+	log.Println(buyingPower)
 	// calculate total amount of shares we can afford
-	shares := float64(currentPrice) / buyingPower
+	shares := buyingPower / float64(currentPrice)
+	log.Println(shares)
 	if err != nil {
 		return "", err
 	}
@@ -41,6 +44,10 @@ func (b *BrokerService) Buy(ticker string, currentPrice int64) (string, error) {
 func (b *BrokerService) Sell(ticker string) (orderID string, err error) {
 	// lets get total amount of shares
 	position, err := b.Client.GetPosition(ticker)
+	if position == nil {
+		return "", errors.New("We have no positions on: " + ticker)
+	}
+	log.Println(position)
 	if err != nil {
 		return "", errors.New(PositionErr)
 	}
