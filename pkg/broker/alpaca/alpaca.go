@@ -35,5 +35,6 @@ func (b *BrokerService) Setup() {
 	}
 	// create new client
 	b.Client = alpaca.NewClient(common.Credentials())
+	
 }
 

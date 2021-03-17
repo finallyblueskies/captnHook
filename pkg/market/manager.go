@@ -17,6 +17,7 @@ type DataManagerService struct {
 // Setup will just configure our services
 func (d *DataManagerService) Setup() {
 	// setup our services
+	// todo: add switch
 	d.CryptoMarket.Setup()
 	d.ForexMarket.Setup()
 	d.StockMarket.Setup()

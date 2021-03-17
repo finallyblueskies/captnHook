@@ -9,11 +9,11 @@ import (
 
 // Buy buys an asset and will move funds into that ticker
 // todo we can allow buy a certain amount but right now we going all in
-func (b *BrokerService) Buy(ticker string, shares int) (string, error) {
-
-
+func (b *BrokerService) Buy(ticker string, currentPrice int64) (string, error) {
 	// check buying power and convert that into share amount
 	buyingPower, err := b.GetBuyingPower()
+	// calculate total amount of shares we can afford
+	shares := float64(currentPrice) / buyingPower
 	if err != nil {
 		return "", err
 	}
@@ -23,7 +23,7 @@ func (b *BrokerService) Buy(ticker string, shares int) (string, error) {
 	order := alpaca.PlaceOrderRequest{
 		AccountID:   common.EnvApiKeyID,
 		AssetKey:    &ticker,
-		Qty:         decimal.NewFromFloat(buyingPower), // we going all in bois
+		Qty:         decimal.NewFromFloat(shares), // we going all in bois
 		Side:        "buy",
 		Type:        "market",
 		TimeInForce: "day",
