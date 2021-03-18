@@ -72,7 +72,10 @@ func getAlpacaConfig() services.AlpacaConfig {
 // return the Binance configuration
 func getBinanceConfig() services.BinanceConfig {
 	// nothing for now
-	return services.BinanceConfig{}
+	return services.BinanceConfig{
+		ClientId: os.Getenv("Binance_Client_ID"),
+		ClientSecret: os.Getenv("Binance_Secret_Key"),
+	}
 }
 
 // return the Coinbase configuration

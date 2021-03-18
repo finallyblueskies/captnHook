@@ -35,7 +35,8 @@ type AlpacaConfig struct {
 
 // BinanceConfig controls Binance configuration variables
 type BinanceConfig struct {
-	// TODO: implement
+	ClientId string
+	ClientSecret string
 }
 
 // CoinbaseConfig controls Coinbase configuration variables
