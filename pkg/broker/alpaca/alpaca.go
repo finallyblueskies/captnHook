@@ -19,22 +19,27 @@ type BrokerService struct {
 	Client        *alpaca.Client
 	ConfigService services.ConfigService
 	DataMangerService services.DataManagerService
+	ClientID string
+	ClientSecret string
 }
 
 // Setup will initialize the Alpaca client
 func (b *BrokerService) Setup() {
-	// config service
-	cs := b.ConfigService
+	// alpaca config variables
+	alpacaConfig := b.ConfigService.Get().Alpaca
+	clientID := alpacaConfig.ClientID
+	secretID := alpacaConfig.ClientSecret
+	baseURL := alpacaConfig.BaseURL
+	accountType := alpacaConfig.AccountType
 	// set client id
-	_ = os.Setenv(common.EnvApiKeyID, cs.Get().Alpaca.ClientID)
+	_ = os.Setenv(common.EnvApiKeyID, clientID)
 	// set client secret
-	_ = os.Setenv(common.EnvApiSecretKey, cs.Get().Alpaca.ClientSecret)
+	_ = os.Setenv(common.EnvApiSecretKey, secretID)
 	// set Alpaca base URL
-	if cs.Get().Alpaca.AccountType == "paper" {
-		alpaca.SetBaseUrl(cs.Get().Alpaca.BaseURL)
+	if accountType == "paper" {
+		alpaca.SetBaseUrl(baseURL)
 	}
 	// create new client
 	b.Client = alpaca.NewClient(common.Credentials())
-	
 }
 
