@@ -5,32 +5,34 @@ import (
 	"github.com/alpacahq/alpaca-trade-api-go/alpaca"
 	"github.com/alpacahq/alpaca-trade-api-go/common"
 	"github.com/shopspring/decimal"
-	"log"
 )
 
-// Buy buys an asset and will move funds into that ticker
-// todo we can allow buy a certain amount but right now we going all in
-func (b *BrokerService) Buy(ticker string, currentPrice int64)  error {
-	// check buying power and convert that into share amount
+// BuyAll will move all available funds into a ticker
+func (b *BrokerService) BuyAll(ticker string, currentPrice float64)  error {
+	// initialize a stop loss that is equivalent to the initial price
+	limitPrice  := decimal.NewFromFloat(currentPrice)
+	// account buying power
 	buyingPower, err := b.GetBuyingPower()
-	// calculate total amount of shares we can afford
-	shares := buyingPower / float64(currentPrice)
-	log.Println(shares)
 	if err != nil {
 		return err
 	}
+	// check if we have have any available funds so we can exit early
 	if buyingPower == 0.0 {
 		return errors.New(NoFundsErr)
 	}
+	// calculate total amount of shares we can afford
+	shares := buyingPower / currentPrice
+	// build order request
 	order := alpaca.PlaceOrderRequest{
 		AccountID:   b.ConfigService.Get().Alpaca.ClientID,
 		AssetKey:    &ticker,
-		Qty:         decimal.NewFromFloat(shares), // we going all in bois
+		Qty:         decimal.NewFromFloat(shares),
 		Side:        "buy",
 		Type:        "market",
 		TimeInForce: "day",
+		LimitPrice: &limitPrice,
 	}
-	// make the order from the client
+	// place the order from Alpaca client
 	_, err = b.Client.PlaceOrder(order)
 	if err != nil {
 		return err
@@ -39,21 +41,23 @@ func (b *BrokerService) Buy(ticker string, currentPrice int64)  error {
 	return  nil
 }
 
-// Sell sells an asset and will move funds into that ticker
-func (b *BrokerService) Sell(ticker string) (err error) {
-	// lets get total amount of shares
+// SellAll sells all available shares of a position
+func (b *BrokerService) SellAll(ticker string) error {
+	// what position do we have on specified ticker
 	position, err := b.Client.GetPosition(ticker)
+	// if we have no position on current ticker then we can exit early
 	if position == nil {
 		return errors.New("We have no positions on: " + ticker)
 	}
-	log.Println(position)
+	// position err
 	if err != nil {
 		return errors.New(PositionErr)
 	}
+	// build order request
 	order := alpaca.PlaceOrderRequest{
 		AccountID:   common.EnvApiKeyID,
 		AssetKey:    &ticker,
-		Qty:         position.Qty, // sell everything
+		Qty:         position.Qty,
 		Side:        "sell",
 		Type:        "market",
 		TimeInForce: "day",
@@ -66,6 +70,17 @@ func (b *BrokerService) Sell(ticker string) (err error) {
 
 	return  nil
 }
+
+// Sell ...
+func (b *BrokerService)Sell(ticker string, amount float64) error {
+	return nil
+}
+
+// Buy ...
+func (b *BrokerService)Buy(ticker string, amount float64) error {
+	return nil
+}
+
 
 // GetBuyingPower returns the user buying power
 func (b *BrokerService) GetBuyingPower() (float64, error) {
