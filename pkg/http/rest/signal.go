@@ -16,32 +16,31 @@ type WebHookRequest struct {
 // Signal accepts a JSON request from TradingView and does trades based on the response data
 func (s *Server) Signal(c echo.Context) (err error) {
 	var request  WebHookRequest
-	var price int64
+	var price float64
 	w := request
 	// bind body to watchlist struct
 	if err = c.Bind(&w); err != nil {
-		return echo.NewHTTPError(BadRequest, BodyBindingErr)
+		return echo.NewHTTPError(ErrBadRequest, ErrBodyBinding)
 	}
 	var id string
 	// determine action
 	if w.Action == "Buy" {
-		price, err = strconv.ParseInt(w.Price, 10, 32)
-		id, err = s.BrokerService.Buy(w.Ticker, price)
+		price, err = strconv.ParseFloat(w.Price, 64)
 		if err != nil {
-			return echo.NewHTTPError(InternalServerErr, "Could not buy "+ w.Ticker, err)
+			return echo.NewHTTPError(ErrInternalServer, ErrStringConversion)
 		}
-	} else if w.Action == "Sell" {
-		id, err = s.BrokerService.Sell(w.Ticker)
+		err = s.BrokerService.BuyAll(w.Ticker, price)
+		if err != nil {
+			return echo.NewHTTPError(ErrInternalServer, "Could not buy "+ w.Ticker, err)
+		}
+	}
+	if w.Action == "Sell" {
+		err = s.BrokerService.SellAll(w.Ticker)
 		if err != nil{
-			return echo.NewHTTPError(InternalServerErr, "No positions on ticker")
-		} else {
-			return echo.NewHTTPError(InternalServerErr, "Action not recognized")
+			return echo.NewHTTPError(ErrInternalServer, "No positions on ticker")
 		}
+
 	}
 	return c.JSON(http.StatusOK, id)
 }
 
-// determineAction will look at the incoming request and determine where to send the data
-func determineAction(request WebHookRequest) {
-
-}
