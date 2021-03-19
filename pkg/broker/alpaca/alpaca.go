@@ -18,7 +18,6 @@ const (
 type BrokerService struct {
 	Client        *alpaca.Client
 	ConfigService services.ConfigService
-	DataMangerService services.DataManagerService
 	ClientID string
 	ClientSecret string
 }
