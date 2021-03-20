@@ -15,3 +15,11 @@ type BrokerService interface {
 	// GetBuyingPower will get the amount of money from the account
 	GetBuyingPower() (float64, error)
 }
+
+// ManagerBrokerService ...
+type ManageBrokerService interface {
+	// Setup will initialize all broker services
+	Setup()
+	// Get returns a broker service
+	Get() BrokerService
+}

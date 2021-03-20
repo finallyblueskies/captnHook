@@ -25,6 +25,8 @@ func (c *Service) Get() services.Config {
 	return services.Config{
 		General: getGeneralConfig(),
 		Alpaca:  getAlpacaConfig(),
+		Binance: getBinanceConfig(),
+		Coinbase: getCoinbaseConfig(),
 	}
 }
 
@@ -71,11 +73,15 @@ func getAlpacaConfig() services.AlpacaConfig {
 
 // return the Binance configuration
 func getBinanceConfig() services.BinanceConfig {
-	// nothing for now
-	return services.BinanceConfig{
-		ClientId: os.Getenv("Binance_Client_ID"),
-		ClientSecret: os.Getenv("Binance_Secret_Key"),
+	// setup config values
+	config := services.BinanceConfig{
+		// client secret
+		ClientSecret: os.Getenv("BINANCE_SECRET_KEY"),
+		// client id
+		ClientId: os.Getenv("BINANCE_CLIENT_ID"),
 	}
+
+	return config
 }
 
 // return the Coinbase configuration

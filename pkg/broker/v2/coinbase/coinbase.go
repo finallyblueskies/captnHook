@@ -1,4 +1,4 @@
-package v1
+package coinbase
 
 
 // BrokerService represent the interface to the Coinbase API

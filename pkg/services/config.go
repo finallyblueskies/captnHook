@@ -5,6 +5,7 @@ type Config struct {
 	General GeneralConfig
 	Alpaca  AlpacaConfig
 	Binance BinanceConfig
+	Coinbase CoinbaseConfig
 }
 
 // ConfigService is an interface that defines the functions needed to implement an interface
@@ -41,5 +42,6 @@ type BinanceConfig struct {
 
 // CoinbaseConfig controls Coinbase configuration variables
 type CoinbaseConfig struct {
-	// TODO: implement
+	ClientID string
+	ClientSecret string
 }

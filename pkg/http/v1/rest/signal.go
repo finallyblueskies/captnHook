@@ -15,7 +15,7 @@ type WebHookRequest struct {
 
 // Signal accepts a JSON request from TradingView and does trades based on the response data
 func (s *Server) Signal(c echo.Context) (err error) {
-	var request  WebHookRequest
+	var request WebHookRequest
 	var price float64
 	w := request
 	// bind body to watchlist struct
