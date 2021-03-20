@@ -5,12 +5,19 @@ import (
 	"github.com/alpacahq/alpaca-trade-api-go/alpaca"
 	"github.com/alpacahq/alpaca-trade-api-go/common"
 	"github.com/shopspring/decimal"
+	"math"
 )
 
 // BuyAll will move all available funds into a ticker
 func (b *BrokerService) BuyAll(ticker string, currentPrice float64)  error {
+	var shares float64
+	// determine if we can buy fractions of asset
+	asset, err := b.Client.GetAsset(ticker)
+	if err != nil {
+		return err
+	}
 	// initialize a stop loss that is equivalent to the initial price
-	limitPrice  := decimal.NewFromFloat(currentPrice)
+	// limitPrice  := decimal.NewFromFloat(currentPrice)
 	// account buying power
 	buyingPower, err := b.GetBuyingPower()
 	if err != nil {
@@ -20,8 +27,14 @@ func (b *BrokerService) BuyAll(ticker string, currentPrice float64)  error {
 	if buyingPower == 0.0 {
 		return errors.New(NoFundsErr)
 	}
-	// calculate total amount of shares we can afford
-	shares := buyingPower / currentPrice
+	// if we can buy fractions of asset
+	if asset.Shortable {
+		// calculate total amount of shares we can afford
+		shares = buyingPower / currentPrice
+	} else {
+		// round to the nearest who number
+		shares = math.Round(buyingPower / currentPrice) - 1
+	}
 	// build order request
 	order := alpaca.PlaceOrderRequest{
 		AccountID:   b.ConfigService.Get().Alpaca.ClientID,
@@ -30,7 +43,7 @@ func (b *BrokerService) BuyAll(ticker string, currentPrice float64)  error {
 		Side:        "buy",
 		Type:        "market",
 		TimeInForce: "day",
-		LimitPrice: &limitPrice,
+		//LimitPrice: &limitPrice,
 	}
 	// place the order from Alpaca client
 	_, err = b.Client.PlaceOrder(order)

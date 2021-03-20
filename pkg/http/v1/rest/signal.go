@@ -31,7 +31,7 @@ func (s *Server) Signal(c echo.Context) (err error) {
 		}
 		err = s.BrokerService.BuyAll(w.Ticker, price)
 		if err != nil {
-			return echo.NewHTTPError(ErrInternalServer, "Could not buy "+ w.Ticker, err)
+			return echo.NewHTTPError(ErrInternalServer, err)
 		}
 	}
 	if w.Action == "Sell" {

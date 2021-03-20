@@ -15,7 +15,10 @@ type BrokerService struct {
 func (b *BrokerService) Setup() {
 	// binance configuration vars
 	binanceConfig := b.ConfigService.Get().Binance
+	// client secret
 	clientSecret := binanceConfig.ClientSecret
+	// client id
 	clientID := binanceConfig.ClientId
+	// set client
 	b.Client = binance.NewClient(clientID, clientSecret)
 }
