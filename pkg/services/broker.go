@@ -25,5 +25,10 @@ type BrokerManager struct {
 type ManageBrokerService interface {
 	// Setup will initialize all broker services
 	Setup()
-	Get() BrokerManager
+	// GetForexService returns the instance forex broker service
+	GetForexService() BrokerService
+	// GetStockService returns the instance stock broker service
+	GetStockService() BrokerService
+	// GetCryptoService returns the instance crypto broker service
+	GetCryptoService() BrokerService
 }

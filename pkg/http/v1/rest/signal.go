@@ -29,13 +29,13 @@ func (s *Server) Signal(c echo.Context) (err error) {
 		if err != nil {
 			return echo.NewHTTPError(ErrInternalServer, ErrStringConversion)
 		}
-		err = s.ManageBrokerService.Get().StockService.BuyAll(w.Ticker, price)
+		err = s.ManageBrokerService.GetStockService().BuyAll(w.Ticker, price)
 		if err != nil {
 			return echo.NewHTTPError(ErrInternalServer, err)
 		}
 	}
 	if w.Action == "Sell" {
-		err = s.ManageBrokerService.Get().StockService.SellAll(w.Ticker)
+		err = s.ManageBrokerService.GetStockService().SellAll(w.Ticker)
 		if err != nil{
 			return echo.NewHTTPError(ErrInternalServer, "No positions on ticker")
 		}

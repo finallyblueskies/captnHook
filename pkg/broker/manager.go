@@ -25,13 +25,19 @@ func (m *ManageBrokerService) Setup() {
 	nilCheck(m.CryptoBroker)
 }
 
-func(m *ManageBrokerService) Get() services.BrokerManager {
-	return services.BrokerManager{
-		StockService: m.StockBroker,
-		CryptoService: m.CryptoBroker,
-		ForexService: m.ForexBroker,
-	}
+// GetStockService returns the Managers stock broker instance
+func(m *ManageBrokerService) GetStockService() services.BrokerService {
+	return m.StockBroker
+}
 
+// GetCryptoService returns the Managers crypto broker instance
+func (m *ManageBrokerService) GetCryptoService() services.BrokerService {
+	return m.CryptoBroker
+}
+
+// GetForexService returns the Managers forex broker instance
+func (m *ManageBrokerService) GetForexService() services.BrokerService {
+	return m.ForexBroker
 }
 
 // nilCheck will setup a service on the Manager if the field is not empty
