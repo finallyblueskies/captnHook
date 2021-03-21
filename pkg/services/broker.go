@@ -16,10 +16,14 @@ type BrokerService interface {
 	GetBuyingPower() (float64, error)
 }
 
+type BrokerManager struct {
+	CryptoService BrokerService
+	StockService BrokerService
+	ForexService BrokerService
+}
 // ManagerBrokerService ...
 type ManageBrokerService interface {
 	// Setup will initialize all broker services
 	Setup()
-	// Get returns a broker service
-	Get() BrokerService
+	Get() BrokerManager
 }

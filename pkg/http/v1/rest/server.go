@@ -22,16 +22,15 @@ const (
 type Server struct {
 	Echo          *echo.Echo // Todo: this couples the application as well - refactor to use basic http server
 	ConfigService services.ConfigService
-	BrokerService services.BrokerService
+	ManageBrokerService services.ManageBrokerService
 }
 
 // NewRESTServer creates a new HTTP server with injected services
-func NewRESTServer(cs services.ConfigService, bs services.BrokerService) *Server {
-
+func NewRESTServer(cs services.ConfigService, brokerManager services.ManageBrokerService) *Server {
 	return &Server{
 		Echo:          echo.New(),
 		ConfigService: cs,
-		BrokerService: bs,
+		ManageBrokerService: brokerManager,
 	}
 }
 

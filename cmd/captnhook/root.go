@@ -1,7 +1,9 @@
 package captnhook
 
 import (
+	"github.com/bareish/captnHook/pkg/broker"
 	"github.com/bareish/captnHook/pkg/broker/v2/alpaca"
+	"github.com/bareish/captnHook/pkg/broker/v2/binance"
 	"github.com/bareish/captnHook/pkg/config"
 	"github.com/bareish/captnHook/pkg/http/v1/rest"
 )
@@ -12,16 +14,25 @@ func Execute() {
 	configService := &config.Service{}
 	configService.Load()
 
-	// todo: create broker management service
-
-	// create the new broker service
-	brokerService := &alpaca.BrokerService{
+	// create the new stock broker service
+	stockBrokerService := &alpaca.BrokerService{
 		ConfigService: configService,
 	}
-	brokerService.Setup()
+
+	// create the new crypto broker service
+	cryptoBrokerService := &binance.BrokerService{
+		ConfigService: configService,
+	}
+
+	// create broker management service
+	brokerManager := &broker.ManageBrokerService{
+		StockBroker: stockBrokerService,
+		CryptoBroker: cryptoBrokerService,
+	}
+	brokerManager.Setup()
 
 	// HTTP/2 REST server
-	server := rest.NewRESTServer(configService, brokerService)
+	server := rest.NewRESTServer(configService, brokerManager)
 	server.Start()
 
 }
