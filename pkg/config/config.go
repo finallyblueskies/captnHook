@@ -86,5 +86,8 @@ func getBinanceConfig() services.BinanceConfig {
 
 // return the Coinbase configuration
 func getCoinbaseConfig() services.CoinbaseConfig {
-	return services.CoinbaseConfig{}
+	return services.CoinbaseConfig{
+		ClientID: os.Getenv("COINBASE_CLIENT_ID"),
+		ClientSecret: os.Getenv("COINBASE_SECRET_KEY"),
+	}
 }

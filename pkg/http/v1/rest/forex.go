@@ -6,15 +6,8 @@ import (
 	"strconv"
 )
 
-// WebHookRequest ...
-type WebHookRequest struct {
-	Ticker string `json:"ticker"`
-	Price  string `json:"price"`
-	Action string `json:"action"`
-}
-
-// Signal accepts a JSON request from TradingView and does trades based on the response data
-func (s *Server) Signal(c echo.Context) (err error) {
+// Forex accepts a JSON request from TradingView and does trades in the forex market based on the response data
+func (s *Server) Forex(c echo.Context) (err error) {
 	var request WebHookRequest
 	var price float64
 	w := request
@@ -29,13 +22,13 @@ func (s *Server) Signal(c echo.Context) (err error) {
 		if err != nil {
 			return echo.NewHTTPError(ErrInternalServer, ErrStringConversion)
 		}
-		err = s.ManageBrokerService.GetStockService().BuyAll(w.Ticker, price)
+		err = s.ManageBrokerService.GetForexService().BuyAll(w.Ticker, price)
 		if err != nil {
 			return echo.NewHTTPError(ErrInternalServer, err)
 		}
 	}
 	if w.Action == "Sell" {
-		err = s.ManageBrokerService.GetStockService().SellAll(w.Ticker)
+		err = s.ManageBrokerService.GetForexService().SellAll(w.Ticker)
 		if err != nil{
 			return echo.NewHTTPError(ErrInternalServer, "No positions on ticker")
 		}
