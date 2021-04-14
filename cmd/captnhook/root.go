@@ -3,7 +3,7 @@ package captnhook
 import (
 	"github.com/bareish/captnHook/pkg/broker"
 	"github.com/bareish/captnHook/pkg/broker/v2/alpaca"
-	"github.com/bareish/captnHook/pkg/broker/v2/coinbase"
+	"github.com/bareish/captnHook/pkg/broker/v2/binance"
 	"github.com/bareish/captnHook/pkg/config"
 	"github.com/bareish/captnHook/pkg/http/v1/rest"
 )
@@ -20,7 +20,7 @@ func Execute() {
 	}
 
 	// create the new crypto broker service
-	cryptoBrokerService := &coinbase.BrokerService{
+	cryptoBrokerService := &binance.BrokerService{
 		ConfigService: configService,
 	}
 
